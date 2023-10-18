@@ -1,0 +1,23 @@
+{
+  "name": "lp-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js --exec 'npm run lint && node'",
+    "lint": "eslint \"**/*.js\" --cache",
+    "test": "jest --env=node"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "jest-circus": "^29.7.0",
+    "mongodb": "^6.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  }
+}
