@@ -3,7 +3,8 @@ module.exports = class ScheduledTask {
 		const currentDate = new Date();
 		const formattedTime = this.#formatTime(currentDate);
 		console.log('The time is now ' + formattedTime);
-		// @TODO implement me!
+
+		setTimeout(() => this.runBackgroundJob(), 5 * 1000);
 	}
 
 	#formatTime(date) {
