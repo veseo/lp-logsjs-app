@@ -36,12 +36,43 @@ module.exports = class HTTPServer {
         return ValidationError.sendError(res, validationError);
       }
 
+      const existingRecord = await this.databaseClient.findById(req.body.id);
+      if (existingRecord) {
+        return ValidationError.sendError(res, `Record with that id already exists!`);
+      }
+
       try {
         const log = new Log({
           id: req.body.id,
           message: req.body.message,
         })
         await this.databaseClient.save(log);
+        return res.json({});
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    });
+
+    this.expressApp.patch('/logs/:id', async (req, res) => {
+      const input = {
+        id: req.params.id,
+        message: req.body.message,
+      }
+      const validationError = this.extractValidationError(input);
+
+      if (validationError) {
+        return ValidationError.sendError(res, validationError);
+      }
+
+      const existingRecord = await this.databaseClient.findById(input.id);
+      if (!existingRecord) {
+        return ValidationError.sendError(res, `Record with id ${input.id} does not exist`);
+      }
+
+      try {
+        existingRecord.message = input.message;
+        await this.databaseClient.save(existingRecord);
         return res.json({});
       } catch (error) {
         console.log(error);

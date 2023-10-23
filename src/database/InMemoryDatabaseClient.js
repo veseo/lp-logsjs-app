@@ -1,24 +1,28 @@
 module.exports = class InMemoryDatabaseClient {
-  #entities = [];
+  #entities = new Map();
 
   async init() {
     // nothing to init
   }
 
   async findAll() {
-    return this.#entities;
+    return Array.from(this.#entities.values());
+  }
+
+  async findById(id) {
+    return this.#entities.get(id);
   }
 
   async count() {
-    return this.#entities.length;
+    return Array.from(this.#entities.values()).length;
   }
 
   async save(record) {
-    this.#entities.push(record);
+    this.#entities.set(record.id, record);
   }
 
   // Useful for the mock implementation
   async deleteAll() {
-    this.#entities = [];
+    this.#entities = new Map();
   }
 }

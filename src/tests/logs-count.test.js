@@ -7,7 +7,7 @@ describe('Logs count', () => {
 
   beforeAll(async () => {
     await server.databaseClient.init();
-    await server.start(8084);
+    await server.start(8081);
   });
 
   test('should return 200 during a regular request', async () => {
