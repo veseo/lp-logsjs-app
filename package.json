@@ -8,7 +8,7 @@
     "dev": "nodemon ./index.js --exec 'npm run lint && node'",
     "lint": "eslint \"**/*.js\" --cache",
     "lint:fix": "npm run lint -- --fix",
-    "test": "jest --env=node"
+    "test": "NODE_ENV=testing jest --env=node"
   },
   "author": "",
   "license": "ISC",
