@@ -29,6 +29,20 @@ module.exports = class HTTPServer {
       }
     });
 
+    this.expressApp.get('/logs/:id', async (req, res) => {
+      try {
+        const existingRecord = await this.databaseClient.findById(req.params.id);
+        if (!existingRecord) {
+          return ValidationError.sendError(res, `Record with that id does not exist`);
+        }
+
+        return res.json(existingRecord);
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    });
+
     this.expressApp.post('/logs', async (req, res) => {
       const validationError = this.extractValidationError(req.body);
 
@@ -67,7 +81,7 @@ module.exports = class HTTPServer {
 
       const existingRecord = await this.databaseClient.findById(input.id);
       if (!existingRecord) {
-        return ValidationError.sendError(res, `Record with id ${input.id} does not exist`);
+        return ValidationError.sendError(res, `Record with that id does not exist`);
       }
 
       try {
