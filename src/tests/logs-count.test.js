@@ -1,7 +1,7 @@
 const server = require('../root');
 const request = require('supertest');
 
-describe('Testing the server', () => {
+describe('Logs count', () => {
   const databaseClient = server.databaseClient;
   const expressApp = server.expressApp;
 
