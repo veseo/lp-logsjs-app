@@ -12,4 +12,13 @@ module.exports = class InMemoryDatabaseClient {
   async count() {
     return this.#entities.length;
   }
+
+  async save(record) {
+    this.#entities.push(record);
+  }
+
+  // Useful for the mock implementation
+  async deleteAll() {
+    this.#entities = [];
+  }
 }
