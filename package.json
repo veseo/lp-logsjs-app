@@ -8,14 +8,14 @@
     "dev": "nodemon ./index.js --exec 'npm run lint && node'",
     "lint": "eslint \"**/*.js\" --cache",
     "lint:fix": "npm run lint -- --fix",
-    "test": "NODE_ENV=testing jest --env=node"
+    "test": "NODE_ENV=testing jest --env=node",
+    "watch": "NODE_ENV=testing jest --watch --bail"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "jest": "^29.7.0",
-    "jest-circus": "^29.7.0",
     "mongodb": "^6.1.0"
   },
   "devDependencies": {

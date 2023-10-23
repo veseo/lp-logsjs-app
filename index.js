@@ -1,21 +1,24 @@
 const HTTPServer = require('./src/HTTPServer');
-const DatabaseClient = require('./src/database/DatabaseClient');
+const MongoDBDatabaseClient = require('./src/database/MongoDBDatabaseClient');
+const InMemoryDatabaseClient = require('./src/database/InMemoryDatabaseClient');
 
-const port = 8080;
+const port = 8081;
 const dbPort = 27017;
 const dbName = 'logs';
 const collectionName = 'logs';
 
-(async () => {
+module.exports = (async () => {
   const databaseClient = process.env.NODE_ENV === 'testing' ?
-    null :
-    new DatabaseClient(dbPort, dbName, collectionName)
+    new InMemoryDatabaseClient() :
+    new MongoDBDatabaseClient(dbPort, dbName, collectionName)
   ;
   await databaseClient.init();
   const httpServer = new HTTPServer({ databaseClient });
   await httpServer.start(port);
 
-  module.exports = httpServer.expressApp;
-})()
+  // console.log(typeof httpServer.expressApp);
+
+  return httpServer.expressApp;
+})();
 
 
