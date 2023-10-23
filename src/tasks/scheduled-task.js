@@ -2,7 +2,7 @@ module.exports = class ScheduledTask {
 	runBackgroundJob() {
 		const currentDate = new Date();
 		const formattedTime = this.#formatTime(currentDate);
-		console.log("The time is now " + formattedTime);
+		console.log('The time is now ' + formattedTime);
 		// @TODO implement me!
 	}
 
@@ -12,4 +12,4 @@ module.exports = class ScheduledTask {
 		const seconds = String(date.getSeconds()).padStart(2, '0');
 		return `${hours}:${minutes}:${seconds}`;
 	}
-}
+};
