@@ -36,7 +36,26 @@ module.exports = class MongoDBDatabaseClient {
     return this.#database.collection(this.#collectionName).find({}).toArray();
   }
 
+  async findById(id) {
+    const result = await this.#database.collection(this.#collectionName).find({ id}).toArray();
+    return result.length > 0 ? result[0] : null;
+  }
+
+  async save(record) {
+    const existingRecord = await this.findById(record.id);
+
+    if (existingRecord) {
+      return this.#database.collection(this.#collectionName).updateOne({
+        id: record.id,
+      }, {
+        $set: record,
+      });
+    }
+
+    this.#database.collection(this.#collectionName).insertOne(record);
+  }
+
   async count() {
-    return this.#database.collection(this.#collectionName).countDocuments({})
+    return this.#database.collection(this.#collectionName).countDocuments({});
   }
 };
